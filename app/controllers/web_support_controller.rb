@@ -6,7 +6,7 @@ class WebSupportController < ApplicationController
     headers = request.headers.to_a.map { |hdr|
          [hdr.first.to_s, hdr.last] }.select { |hdr|
          /^HTTP/ =~ hdr.first }.reject { |hdr|
-         forbidden_hdrs.include? hdr.first }
+         forbidden_hdrs.include? hdr.first[5..-1] }
     @headers = headers.map { |hdr| "#{hdr.first[5..-1]}: #{hdr.last}\n" }.
                        sort.join
          

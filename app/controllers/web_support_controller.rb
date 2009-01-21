@@ -1,5 +1,7 @@
+require 'csv'
+
 class WebSupportController < ApplicationController
-  protect_from_forgery :except => [:echo]
+  protect_from_forgery :except => [:csv, :echo]
   
   def echo
     forbidden_hdrs = ['X_REAL_IP'];
@@ -16,5 +18,9 @@ class WebSupportController < ApplicationController
                                     :method => request.method,
                                     :body => request.body.string } }
     end
+  end
+  
+  def csv
+    render :text => CSV.generate_line(params[:data])
   end
 end

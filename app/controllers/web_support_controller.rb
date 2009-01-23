@@ -12,12 +12,11 @@ class WebSupportController < ApplicationController
          forbidden_hdrs.include? hdr.first[5..-1] }
     @headers = headers.map { |hdr| "#{hdr.first[5..-1]}: #{hdr.last}\n" }.
                        sort.join
-         
+    @method = request.method.to_s
+    @body = request.body.string
     respond_to do |format|
-      format.html # 
-      format.xml { render :xml => { :headers => @headers,
-                                    :method => request.method,
-                                    :body => request.body.string } }
+      format.html # echo.html.erb
+      format.xml # echo.xml.builder
     end
   end
   

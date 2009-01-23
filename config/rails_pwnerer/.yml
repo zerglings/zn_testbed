@@ -1,2 +1,3 @@
 --- 
 dns_name: zn-testbed.zergling.net
+frontends: 1

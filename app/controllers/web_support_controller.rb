@@ -4,7 +4,8 @@ class WebSupportController < ApplicationController
   protect_from_forgery :except => [:csv, :echo]
   
   def echo
-    forbidden_hdrs = ['X_REAL_IP'];
+    forbidden_hdrs = ['X_REAL_IP', 'X_FORWARDED_FOR', 'X_HEROKU_CAN_EDIT',
+                      'X_HEROKU_USER', 'X_VARNISH'];
     headers = request.headers.to_a.map { |hdr|
          [hdr.first.to_s, hdr.last] }.select { |hdr|
          /^HTTP/ =~ hdr.first }.reject { |hdr|

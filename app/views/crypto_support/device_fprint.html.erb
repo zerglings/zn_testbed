@@ -1,0 +1,16 @@
+<pre>crypto_support/device_fprint</pre>
+
+<div>
+This service expects iDevice (iPhone / iPod Touch) attributes packed as a hash
+named "attributes" in your request, and returns a MD5 digest and hex_digest over
+the attributes. It's the only good way of testing ZNDeviceFprint in
+CryptoSupport, short of mocking the attribute getter or duplicating the digest
+logic.
+</div>
+
+<div>
+Use the following path in your unit tests:
+<br />
+<%= link_to h(url_for(:format => :xml, :only_path => false)),
+            :format => :xml, :only_path => false %>
+</div>

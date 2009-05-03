@@ -6,8 +6,11 @@ unit-testing code that puts together Web service requests.
 </div>
 
 <div>
-Use the following path in your unit tests:
+Use the following paths in your unit tests:
 <br />
 <%= link_to h(url_for(:format => :xml, :only_path => false)),
             :format => :xml, :only_path => false %>
+<br />
+<%= link_to h(url_for(:format => :json, :only_path => false)),
+            :format => :json, :only_path => false %>
 </div>

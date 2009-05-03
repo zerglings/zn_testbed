@@ -15,6 +15,11 @@ class WebSupportController < ApplicationController
     @method = request.method.to_s
     @body = request.body.string
     respond_to do |format|
+      format.json do
+        render :json => { :echo => { :headers => @headers,
+                                     :method => @method,
+                                     :body => @body } } 
+      end
       format.html # echo.html.erb
       format.xml # echo.xml.builder
     end

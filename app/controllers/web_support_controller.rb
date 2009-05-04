@@ -10,6 +10,7 @@ class WebSupportController < ApplicationController
          [hdr.first.to_s, hdr.last] }.select { |hdr|
          /^HTTP/ =~ hdr.first }.reject { |hdr|
          forbidden_hdrs.include? hdr.first[5..-1] }
+    @uri = request.request_uri
     @headers = headers.map { |hdr| "#{hdr.first[5..-1]}: #{hdr.last}\n" }.
                        sort.join
     @method = request.method.to_s
@@ -18,7 +19,8 @@ class WebSupportController < ApplicationController
       format.json do
         render :json => { :echo => { :headers => @headers,
                                      :method => @method,
-                                     :body => @body } } 
+                                     :body => @body,
+                                     :uri => @uri } } 
       end
       format.html # echo.html.erb
       format.xml # echo.xml.builder

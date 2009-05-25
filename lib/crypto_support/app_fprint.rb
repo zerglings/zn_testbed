@@ -12,6 +12,7 @@ module CryptoSupport::AppFprint
     cipher.key = CryptoSupport::DeviceFprint.raw_md5 device_attributes
     cipher.iv = "\0" * 16
     
+    manifest = manifest.read unless manifest.respond_to? :to_str 
     plain = manifest + "\0" * ((16 - (manifest.length & 0x0f)) & 0x0f)
     crypted = cipher.update plain
     Digest::SHA2.hexdigest crypted

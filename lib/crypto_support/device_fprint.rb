@@ -5,7 +5,10 @@ require 'digest/md5'
 # This code is as official as it gets -- it's used in the unit tests.
 module CryptoSupport::DeviceFprint
   def self.fprint_data(device_attributes)
-    'D|' + device_attributes.keys.sort.map { |k| device_attributes[k] }.join('|')
+    'D|' + device_attributes.keys.sort.map { |k|
+      device_attributes[k].respond_to?(:to_str) ? device_attributes[k] :
+          device_attributes[k].read
+    }.join('|')
   end
   
   def self.raw_md5(device_attributes)

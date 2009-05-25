@@ -19,6 +19,7 @@ class CryptoSupportController < ApplicationController
   def app_fprint
     attrs = params[:attributes] || {}
     manifest = params[:manifest] || ' '
+    manifest = manifest.read unless manifest.respond_to? :to_str 
     
     # UTF-8 --> ASCII
     # TODO(overmind): should Rails have done this for us?

@@ -1,3 +1,5 @@
+require "date"
+require "set"
 require 'base64'
 require 'uri'
 require 'net/http'
@@ -30,7 +32,15 @@ module ImobileSupport::PaymentReceipt
     
     # Process the response.
     response = JSON.parse http_response.body
-    response['status'] == 0 ? response['receipt'] : false
+    return false unless response['status']
+    receipt = response['receipt'] 
+
+    # Bonus: parse out dates in the JSON.
+    ['purchase-date', 'original-purchase-date',
+     'purchase_date', 'original_purchase_date'].each do |prop|
+       receipt[prop] &&= DateTime.parse receipt[prop]
+    end
+    receipt
   end
   
   def self.store_uri(production = true)

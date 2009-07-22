@@ -11,8 +11,10 @@ class ImobileSupportController < ApplicationController
     
     # UTF-8 --> ASCII
     # TODO(costan): should Rails have done this for us?
-    receipt = receipt.unpack('U*').pack('C*')
-    File.open('/tmp/receipt', 'w') { |f| f.write receipt }
+    receipt = receipt.unpack('U*').pack('C*')    
+    if RAILS_ENV == 'development'
+      File.open('/tmp/receipt', 'w') { |f| f.write receipt }
+    end
     
     if params[:receipt].blank?
       @receipt = false

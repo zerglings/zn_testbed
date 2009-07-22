@@ -22,7 +22,7 @@ class CryptoSupportController < ApplicationController
     manifest = manifest.read unless manifest.respond_to? :to_str 
     
     # UTF-8 --> ASCII
-    # TODO(overmind): should Rails have done this for us?
+    # TODO(costan): should Rails have done this for us?
     manifest = manifest.unpack('U*').pack('C*')
     
     @hex_fprint = CryptoSupport::AppFprint.hex_fprint manifest, attrs

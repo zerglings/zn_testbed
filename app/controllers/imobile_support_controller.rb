@@ -20,7 +20,7 @@ class ImobileSupportController < ApplicationController
     if params[:receipt].blank?
       @receipt = false
     else
-      @receipt = Imobile.verify_receipt receipt, server_type
+      @receipt = Imobile.validate_receipt receipt, server_type
     end
 
     respond_to do |format|

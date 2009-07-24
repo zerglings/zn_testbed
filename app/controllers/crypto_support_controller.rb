@@ -1,5 +1,3 @@
-require 'digest/md5'
-
 class CryptoSupportController < ApplicationController
   protect_from_forgery :except => [:app_fprint, :device_fprint]
   
@@ -7,8 +5,15 @@ class CryptoSupportController < ApplicationController
     attrs = params[:attributes] || {}
     
     # Reference code for how the digests are computed.
-    @data = CryptoSupport::DeviceFprint.fprint_data attrs
-    @hex_md5 = CryptoSupport::DeviceFprint.hex_md5 attrs
+    @data = Imobile::CryptoSupportAppFprint.device_fprint_data attrs
+    @hex_md5 = Imobile::CryptoSupportAppFprint.hex_device_fprint attrs
+    
+    # In development mode, save the finger-print for test case generation.
+    if RAILS_ENV == 'development'
+      File.open('/tmp/device_fprint', 'w') do |f|
+        f.write attrs.inspect + "\n" + @hex_md5 + "\n"
+      end
+    end
     
     respond_to do |format|
       format.html # device_fprint.html.erb

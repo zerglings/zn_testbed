@@ -1,3 +1,4 @@
 --- 
 dns_name: zn-testbed.zergling.net
 frontends: 1
+gems:imobile

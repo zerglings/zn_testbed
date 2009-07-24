@@ -1,6 +1,9 @@
 class CryptoSupportController < ApplicationController
   protect_from_forgery :except => [:app_fprint, :device_fprint]
   
+  # Don't log the (huge) binaries.
+  filter_parameter_logging :manifest
+  
   def device_fprint
     attrs = params[:attributes] || {}
     

@@ -30,7 +30,8 @@ class CryptoSupportController < ApplicationController
     # TODO(costan): should Rails have done this for us?
     manifest = manifest.unpack('U*').pack('C*')
     
-    @hex_fprint = CryptoSupport::AppFprint.hex_fprint manifest, attrs
+    @hex_fprint =
+        Imobile::CryptoSupportAppFprint.app_fprint_from_raw_data attrs, manifest
 
     respond_to do |format|
       format.html # app_fprint.html.erb

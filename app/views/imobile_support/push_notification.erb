@@ -1,0 +1,35 @@
+<pre>imobile_support/push_notification</pre>
+
+<p>
+This service pushes a notification using the Apple Push Notification service.
+It expects the following parameters:
+<dl>
+	<dt>notification</dt>
+	<dd>The notification data, to be JSON-encoded into an APNs notification.</dd>
+	<dt>device</dt>
+	<dd>Information on the target device. The following keys should be supplied:
+		<dl>
+			<dt>app_push_token</dt>
+			<dd>hex-encoded push token for the app (should be 64 hexdigits long)</dd>
+		</dl>
+	</dd>
+	<dt>certificate</dt>
+	<dd>The PKCS12 (.p12) certificate needed to talk Apple's server. The testbed
+	will auto-detech the type of server it needs to talk to (production vs
+	sandbox).
+	</dd>
+</dl>	
+
+<p>
+The service will return the following JSON hash on success: <code>{'response':
+{'status': 'ok'} }</code>. If an error occurs, a HTTP error code will be
+returned.
+</p>
+
+<p>
+Use the following path in your unit tests:
+<pre>
+<%= link_to h(url_for(:format => :json, :only_path => false)),
+            :format => :json, :only_path => false %>
+</pre>
+</p>

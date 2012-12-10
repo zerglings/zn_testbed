@@ -23,9 +23,10 @@ test:
   pool: 5
   username: <%= ENV['USER'] %>
 
+# Heroku replaces this.
 production:
   adapter: postgresql
   encoding: unicode
-  database: zn_testbed_prod
+  database: zn_testbed_dev
   pool: 5
   username: <%= ENV['USER'] %>

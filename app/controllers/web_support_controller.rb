@@ -17,6 +17,7 @@ class WebSupportController < ApplicationController
     }
     @uri = url_for
     @headers = headers.map { |hdr| "#{hdr.first[5..-1]}: #{hdr.last}\n" }.sort
+                                                                         .join
     @method = request.method.to_s
     @body = request.body.string
     respond_to do |format|
